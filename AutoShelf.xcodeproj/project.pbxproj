@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		052EB63C2C5AFE4200C6CFDD /* Utilites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052EB63B2C5AFE4200C6CFDD /* Utilites.swift */; };
 		0578374B2C59848C0072C5A0 /* AutoShelfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */; };
-		0578374D2C59848C0072C5A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578374C2C59848C0072C5A0 /* ContentView.swift */; };
 		0578374F2C59848E0072C5A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0578374E2C59848E0072C5A0 /* Assets.xcassets */; };
 		057837522C59848E0072C5A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 057837512C59848E0072C5A0 /* Preview Assets.xcassets */; };
+		0578375A2C598DA20072C5A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057837592C598DA20072C5A0 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		052EB63B2C5AFE4200C6CFDD /* Utilites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilites.swift; sourceTree = "<group>"; };
 		057837472C59848C0072C5A0 /* AutoShelf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoShelf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoShelfApp.swift; sourceTree = "<group>"; };
-		0578374C2C59848C0072C5A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0578374E2C59848E0072C5A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		057837512C59848E0072C5A0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		057837532C59848E0072C5A0 /* AutoShelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoShelf.entitlements; sourceTree = "<group>"; };
+		057837592C598DA20072C5A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,11 +54,12 @@
 		057837492C59848C0072C5A0 /* AutoShelf */ = {
 			isa = PBXGroup;
 			children = (
+				057837592C598DA20072C5A0 /* AppDelegate.swift */,
 				0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */,
-				0578374C2C59848C0072C5A0 /* ContentView.swift */,
 				0578374E2C59848E0072C5A0 /* Assets.xcassets */,
 				057837532C59848E0072C5A0 /* AutoShelf.entitlements */,
 				057837502C59848E0072C5A0 /* Preview Content */,
+				052EB63B2C5AFE4200C6CFDD /* Utilites.swift */,
 			);
 			path = AutoShelf;
 			sourceTree = "<group>";
@@ -139,7 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0578374D2C59848C0072C5A0 /* ContentView.swift in Sources */,
+				0578375A2C598DA20072C5A0 /* AppDelegate.swift in Sources */,
+				052EB63C2C5AFE4200C6CFDD /* Utilites.swift in Sources */,
 				0578374B2C59848C0072C5A0 /* AutoShelfApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,6 +275,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AutoShelf/AutoShelf.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -279,6 +285,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "This app needs access to your Downloads folder to monitor for new files.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -287,6 +295,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shlomocode.AutoShelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -298,6 +307,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AutoShelf/AutoShelf.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -306,6 +317,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "This app needs access to your Downloads folder to monitor for new files.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,6 +327,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shlomocode.AutoShelf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};

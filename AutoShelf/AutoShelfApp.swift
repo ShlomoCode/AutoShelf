@@ -1,17 +1,16 @@
-//
-//  AutoShelfApp.swift
-//  AutoShelf
-//
-//  Created by shlomo on 30/07/2024.
-//
-
 import SwiftUI
 
 @main
 struct AutoShelfApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        MenuBarExtra("main", systemImage: "folder.circle.fill") {
+            Text("Auto Shelf")
+            
+            Button("Quit") {
+                NSApplication.shared.terminate(nil)
+            }.keyboardShortcut("q")
         }
     }
 }
