@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		052EB63C2C5AFE4200C6CFDD /* Utilites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052EB63B2C5AFE4200C6CFDD /* Utilites.swift */; };
+		054825EA2C5B1C320061463F /* DirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054825E92C5B1C320061463F /* DirectoryMonitor.swift */; };
+		054825EC2C5B1C940061463F /* DropshelfController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054825EB2C5B1C940061463F /* DropshelfController.swift */; };
+		054825EE2C5C762B0061463F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054825ED2C5C762B0061463F /* Notifications.swift */; };
 		0578374B2C59848C0072C5A0 /* AutoShelfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */; };
 		0578374F2C59848E0072C5A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0578374E2C59848E0072C5A0 /* Assets.xcassets */; };
 		057837522C59848E0072C5A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 057837512C59848E0072C5A0 /* Preview Assets.xcassets */; };
@@ -15,7 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		052EB63B2C5AFE4200C6CFDD /* Utilites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilites.swift; sourceTree = "<group>"; };
+		054825E92C5B1C320061463F /* DirectoryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryMonitor.swift; sourceTree = "<group>"; };
+		054825EB2C5B1C940061463F /* DropshelfController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropshelfController.swift; sourceTree = "<group>"; };
+		054825ED2C5C762B0061463F /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		057837472C59848C0072C5A0 /* AutoShelf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoShelf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoShelfApp.swift; sourceTree = "<group>"; };
 		0578374E2C59848E0072C5A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,12 +58,14 @@
 		057837492C59848C0072C5A0 /* AutoShelf */ = {
 			isa = PBXGroup;
 			children = (
-				057837592C598DA20072C5A0 /* AppDelegate.swift */,
 				0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */,
+				057837592C598DA20072C5A0 /* AppDelegate.swift */,
+				054825E92C5B1C320061463F /* DirectoryMonitor.swift */,
+				054825EB2C5B1C940061463F /* DropshelfController.swift */,
+				054825ED2C5C762B0061463F /* Notifications.swift */,
 				0578374E2C59848E0072C5A0 /* Assets.xcassets */,
 				057837532C59848E0072C5A0 /* AutoShelf.entitlements */,
 				057837502C59848E0072C5A0 /* Preview Content */,
-				052EB63B2C5AFE4200C6CFDD /* Utilites.swift */,
 			);
 			path = AutoShelf;
 			sourceTree = "<group>";
@@ -142,8 +148,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054825EE2C5C762B0061463F /* Notifications.swift in Sources */,
+				054825EC2C5B1C940061463F /* DropshelfController.swift in Sources */,
+				054825EA2C5B1C320061463F /* DirectoryMonitor.swift in Sources */,
 				0578375A2C598DA20072C5A0 /* AppDelegate.swift in Sources */,
-				052EB63C2C5AFE4200C6CFDD /* Utilites.swift in Sources */,
 				0578374B2C59848C0072C5A0 /* AutoShelfApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
