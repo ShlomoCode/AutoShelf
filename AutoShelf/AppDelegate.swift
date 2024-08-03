@@ -1,13 +1,23 @@
 import Cocoa
-import UserNotifications
 import SwiftUI
-import Combine
 
-class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
+fileprivate func requestAccessibilityPermission (){
+    let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String : true]
+    if !AXIsProcessTrustedWithOptions(options) {
+        print("AX Permission Not Granted!")
+    } else {
+        print("AX Permission Granted")
+    }
+}
+
+class AppDelegate: NSObject, NSApplicationDelegate {
     private var filesMonitor: DirectoryMonitor?
+    private var dropshelfController: DropshelfController?
     
-    override init() {
-        super.init()
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        print("Application did finish launching")
+        
+        requestAccessibilityPermission()
         
         guard let downloadsPath = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first else {
             let alert = NSAlert()
@@ -19,15 +29,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             return
         }
         
-        print("Watching directory: \(downloadsPath.path)")
-        self.filesMonitor = DirectoryMonitor(downloadsPath)
-    }
-    
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        print("Application did finish launching")
+        print("Starting Watching at \(downloadsPath.path)")
         
-        Notifications.requestNotificationPermission()
+        filesMonitor = DirectoryMonitor(downloadsPath)
+        filesMonitor!.startMonitoring()
         
-        self.filesMonitor?.startMonitoring()
+        dropshelfController = DropshelfController.shared
     }
 }

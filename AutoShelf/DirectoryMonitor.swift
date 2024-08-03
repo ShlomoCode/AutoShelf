@@ -2,6 +2,21 @@ import Cocoa
 import UniformTypeIdentifiers
 import Combine
 
+fileprivate func hasDefaultApplicationForFile(fileName: String) -> Bool {
+    let fileURL = URL(fileURLWithPath: fileName)
+    let fileExtension = fileURL.pathExtension
+    
+    guard let uti = UTType(filenameExtension: fileExtension)?.identifier as CFString? else {
+        return false
+    }
+    
+    guard let _ = LSCopyDefaultApplicationURLForContentType(uti, .all, nil)?.takeRetainedValue() else {
+        return false
+    }
+    
+    return true
+}
+
 class DirectoryMonitor: NSObject {
     private let watchDirURL: URL
     private var cancellables = Set<AnyCancellable>()
@@ -34,12 +49,12 @@ class DirectoryMonitor: NSObject {
                     for try await changes in fileSystemMonitor {
                         for change in changes {
                             // Skip files that do not have a default application, as they are likely temporary files
-                            guard DirectoryMonitor.hasDefaultApplicationForFile(fileName: change.lastPathComponent) else {
+                            guard hasDefaultApplicationForFile(fileName: change.lastPathComponent) else {
                                 continue
                             }
                             
                             if self.fileManager.fileExists(atPath: change.path) {
-                                DropshelfController.sendToDropshelf(filePaths: [change.path])
+                                DropshelfController.shared.addFile(fileURL: change)
                                 
                                 Notifications.notifyFileAdded(fileName: change.lastPathComponent)
                             } else {
@@ -91,21 +106,6 @@ class DirectoryMonitor: NSObject {
         let addedFiles = currentFiles.subtracting(knownFiles)
         let deletedFiles = knownFiles.subtracting(currentFiles)
         return (addedFiles.union(deletedFiles)).map { self.watchDirURL.appendingPathComponent($0) }
-    }
-    
-    static func hasDefaultApplicationForFile(fileName: String) -> Bool {
-        let fileURL = URL(fileURLWithPath: fileName)
-        let fileExtension = fileURL.pathExtension
-        
-        guard let uti = UTType(filenameExtension: fileExtension)?.identifier as CFString? else {
-            return false
-        }
-        
-        guard let _ = LSCopyDefaultApplicationURLForContentType(uti, .all, nil)?.takeRetainedValue() else {
-            return false
-        }
-        
-        return true
     }
 }
 
