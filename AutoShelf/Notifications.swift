@@ -2,33 +2,32 @@ import UserNotifications
 import SwiftUI
 
 class Notifications {
-    static func requestNotificationPermission() {
+    static func requestNotificationPermission() async {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert]) { granted, error in
-            guard granted else {
-                let alert = NSAlert()
-                alert.messageText = "Failed to request notification authorization: \(error?.localizedDescription ?? "Unknown error")"
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: "OK")
-                alert.runModal()
-                return
-            }
+        let permissionGranted = try? await center.requestAuthorization(options: [.alert])
+        if let permissionGranted = permissionGranted, permissionGranted == true {
             print("Notification permission granted")
+        } else {
+            print("Notification permission not granted")
         }
     }
     
-    static func notifyFileAdded(fileName: String) {
+    static func notifyItemAdded(itemPath: URL, itemType: FileAttributeType) {
+        let itemTypeReadableName = itemType == .typeDirectory ? "Directory" : "File"
+        let parentDir = itemPath.deletingLastPathComponent().lastPathComponent
         let content = createNotificationContent(
-            title: "New Download",
-            body: "File '\(fileName)' has been added to Downloads"
+            title: "New \(itemTypeReadableName) in Downloads",
+            body: "The \(itemTypeReadableName) '\(itemPath.lastPathComponent)' has been added to \(parentDir)"
         )
         scheduleNotification(content: content)
     }
     
-    static func notifyFileDeleted(fileName: String) {
+    static func notifyItemDeleted(itemPath: URL, itemType: FileAttributeType) {
+        let itemTypeReadableName = itemType == .typeDirectory ? "Directory" : "File"
+        let parentDir = itemPath.deletingLastPathComponent().lastPathComponent
         let content = createNotificationContent(
-            title: "File Deleted",
-            body: "File '\(fileName)' has been removed from Downloads"
+            title: "\(itemTypeReadableName) Deleted from Downloads",
+            body: "The \(itemTypeReadableName) '\(itemPath.lastPathComponent)' has been removed from \(parentDir)"
         )
         scheduleNotification(content: content)
     }

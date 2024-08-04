@@ -7,25 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		051A4CD02C5FE6D5000E5421 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A4CCF2C5FE6D5000E5421 /* DefaultsKeys.swift */; };
+		051A4CD32C5FE70A000E5421 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 051A4CD22C5FE70A000E5421 /* Defaults */; };
+		051A4CD62C5FFED6000E5421 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = 051A4CD52C5FFED6000E5421 /* Settings */; };
+		051A4CD92C5FFF5F000E5421 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 051A4CD82C5FFF5F000E5421 /* LaunchAtLogin */; };
+		051A4CE02C60023D000E5421 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A4CDF2C60023D000E5421 /* SettingsView.swift */; };
 		054825EA2C5B1C320061463F /* DirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054825E92C5B1C320061463F /* DirectoryMonitor.swift */; };
 		054825EC2C5B1C940061463F /* DropshelfController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054825EB2C5B1C940061463F /* DropshelfController.swift */; };
 		054825EE2C5C762B0061463F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054825ED2C5C762B0061463F /* Notifications.swift */; };
-		0578374B2C59848C0072C5A0 /* AutoShelfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */; };
+		0578374B2C59848C0072C5A0 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578374A2C59848C0072C5A0 /* App.swift */; };
 		0578374F2C59848E0072C5A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0578374E2C59848E0072C5A0 /* Assets.xcassets */; };
 		057837522C59848E0072C5A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 057837512C59848E0072C5A0 /* Preview Assets.xcassets */; };
 		0578375A2C598DA20072C5A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057837592C598DA20072C5A0 /* AppDelegate.swift */; };
+		05C0C7152C601B0D000ADAC6 /* SettingsWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C0C7142C601B0D000ADAC6 /* SettingsWindowManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		051A4CCF2C5FE6D5000E5421 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		051A4CDF2C60023D000E5421 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		054825E92C5B1C320061463F /* DirectoryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryMonitor.swift; sourceTree = "<group>"; };
 		054825EB2C5B1C940061463F /* DropshelfController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropshelfController.swift; sourceTree = "<group>"; };
 		054825ED2C5C762B0061463F /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		057837472C59848C0072C5A0 /* AutoShelf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoShelf.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoShelfApp.swift; sourceTree = "<group>"; };
+		0578374A2C59848C0072C5A0 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		0578374E2C59848E0072C5A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		057837512C59848E0072C5A0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		057837532C59848E0072C5A0 /* AutoShelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoShelf.entitlements; sourceTree = "<group>"; };
 		057837592C598DA20072C5A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		05C0C7142C601B0D000ADAC6 /* SettingsWindowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWindowManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				051A4CD92C5FFF5F000E5421 /* LaunchAtLogin in Frameworks */,
+				051A4CD32C5FE70A000E5421 /* Defaults in Frameworks */,
+				051A4CD62C5FFED6000E5421 /* Settings in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,8 +70,11 @@
 		057837492C59848C0072C5A0 /* AutoShelf */ = {
 			isa = PBXGroup;
 			children = (
-				0578374A2C59848C0072C5A0 /* AutoShelfApp.swift */,
+				0578374A2C59848C0072C5A0 /* App.swift */,
 				057837592C598DA20072C5A0 /* AppDelegate.swift */,
+				051A4CDF2C60023D000E5421 /* SettingsView.swift */,
+				05C0C7142C601B0D000ADAC6 /* SettingsWindowManager.swift */,
+				051A4CCF2C5FE6D5000E5421 /* DefaultsKeys.swift */,
 				054825E92C5B1C320061463F /* DirectoryMonitor.swift */,
 				054825EB2C5B1C940061463F /* DropshelfController.swift */,
 				054825ED2C5C762B0061463F /* Notifications.swift */,
@@ -94,6 +109,11 @@
 			dependencies = (
 			);
 			name = AutoShelf;
+			packageProductDependencies = (
+				051A4CD22C5FE70A000E5421 /* Defaults */,
+				051A4CD52C5FFED6000E5421 /* Settings */,
+				051A4CD82C5FFF5F000E5421 /* LaunchAtLogin */,
+			);
 			productName = AutoShelf;
 			productReference = 057837472C59848C0072C5A0 /* AutoShelf.app */;
 			productType = "com.apple.product-type.application";
@@ -122,6 +142,11 @@
 				Base,
 			);
 			mainGroup = 0578373E2C59848C0072C5A0;
+			packageReferences = (
+				051A4CD12C5FE70A000E5421 /* XCRemoteSwiftPackageReference "Defaults" */,
+				051A4CD42C5FFED6000E5421 /* XCRemoteSwiftPackageReference "Settings" */,
+				051A4CD72C5FFF5F000E5421 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+			);
 			productRefGroup = 057837482C59848C0072C5A0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -148,11 +173,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				051A4CE02C60023D000E5421 /* SettingsView.swift in Sources */,
+				051A4CD02C5FE6D5000E5421 /* DefaultsKeys.swift in Sources */,
+				05C0C7152C601B0D000ADAC6 /* SettingsWindowManager.swift in Sources */,
 				054825EE2C5C762B0061463F /* Notifications.swift in Sources */,
 				054825EC2C5B1C940061463F /* DropshelfController.swift in Sources */,
 				054825EA2C5B1C320061463F /* DirectoryMonitor.swift in Sources */,
 				0578375A2C598DA20072C5A0 /* AppDelegate.swift in Sources */,
-				0578374B2C59848C0072C5A0 /* AutoShelfApp.swift in Sources */,
+				0578374B2C59848C0072C5A0 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +321,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "This app needs access to your Downloads folder to monitor for new files.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -325,7 +352,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "This app needs access to your Downloads folder to monitor for new files.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -363,6 +389,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		051A4CD12C5FE70A000E5421 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.2.0;
+			};
+		};
+		051A4CD42C5FFED6000E5421 /* XCRemoteSwiftPackageReference "Settings" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Settings";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
+		051A4CD72C5FFF5F000E5421 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		051A4CD22C5FE70A000E5421 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 051A4CD12C5FE70A000E5421 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		051A4CD52C5FFED6000E5421 /* Settings */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 051A4CD42C5FFED6000E5421 /* XCRemoteSwiftPackageReference "Settings" */;
+			productName = Settings;
+		};
+		051A4CD82C5FFF5F000E5421 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 051A4CD72C5FFF5F000E5421 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0578373F2C59848C0072C5A0 /* Project object */;
 }

@@ -3,16 +3,18 @@ import Cocoa
 struct ManagedShelf {
     var axElement: AXUIElement
     var addedDate = Date()
-    var fileURL: URL
+    var itemURL: URL
 }
 
-fileprivate func sendFileToDropshelfService(fileURLs: [URL]) -> Bool {
+fileprivate func sendToDropshelfService(itemURLs: [URL]) -> Bool {
     let pasteboard = NSPasteboard.withUniqueName()
     
-    let success = pasteboard.writeObjects(fileURLs as [NSURL])
+    let success = pasteboard.writeObjects(itemURLs as [NSURL])
     
     if success {
-        NSPerformService("Send to Dropshelf", pasteboard)
+        let _ = DispatchQueue.main.sync {
+            NSPerformService("Send to Dropshelf", pasteboard)
+        }
         return true
     } else {
         return false
@@ -28,6 +30,7 @@ class DropshelfController: ObservableObject {
     var appAxElement: AXUIElement
     private var windowsObserver: AXObserver
     @Published var managedShelves: [ManagedShelf] = []
+    private var inProccessItems: [URL] = []
     static let shared = DropshelfController()
     
     private init() {
@@ -66,13 +69,7 @@ class DropshelfController: ObservableObject {
         managedShelves.removeAll { $0.axElement == managedShelf.axElement }
     }
     
-    func closeAllShelfs() {
-        for managedShelf in managedShelves {
-            closeShelf(managedShelf)
-        }
-    }
-    
-    func getOpenShelfs() -> [AXUIElement] {
+    func getOpenShelves() -> [AXUIElement] {
         var value: AnyObject?
         let result = AXUIElementCopyAttributeValue(DropshelfController.shared.appAxElement, kAXWindowsAttribute as CFString, &value)
         
@@ -88,10 +85,10 @@ class DropshelfController: ObservableObject {
         }
     }
     
-    func addFile(fileURL: URL) {
-        let shelfWindowsBefore = getOpenShelfs()
+    func addItem(path: URL) {
+        let shelfWindowsBefore = getOpenShelves()
         
-        guard sendFileToDropshelfService(fileURLs: [fileURL]) else {
+        guard sendToDropshelfService(itemURLs: [path]) else {
             print("Failed to send file to Dropshelf")
             return
         }
@@ -99,22 +96,29 @@ class DropshelfController: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             guard let self = self else { return }
             
-            let shelfWindowsAfter = self.getOpenShelfs()
+            let shelfWindowsAfter = self.getOpenShelves()
             guard let newWindow = shelfWindowsAfter.first(where: { !shelfWindowsBefore.contains($0) }) else {
                 print("Failed to find new shelf window")
                 return
             }
             
-            let newShelf = ManagedShelf(axElement: newWindow, fileURL: fileURL)
+            let newShelf = ManagedShelf(axElement: newWindow, itemURL: path)
             DispatchQueue.main.async {
                 self.managedShelves.append(newShelf)
             }
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
                 self.closeShelf(newShelf)
                 self.managedShelves.removeAll { $0.axElement == newShelf.axElement }
             }
             
             AXObserverAddNotification(self.windowsObserver, newWindow, kAXUIElementDestroyedNotification as CFString, nil)
+        }
+    }
+    
+    func closeAll() {
+        for managedShelf in managedShelves {
+            closeShelf(managedShelf)
         }
     }
 }

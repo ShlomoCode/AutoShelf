@@ -1,6 +1,7 @@
 import Cocoa
 import UniformTypeIdentifiers
 import Combine
+import Defaults
 
 fileprivate func hasDefaultApplicationForFile(fileName: String) -> Bool {
     let fileURL = URL(fileURLWithPath: fileName)
@@ -17,11 +18,15 @@ fileprivate func hasDefaultApplicationForFile(fileName: String) -> Bool {
     return true
 }
 
+fileprivate func isHiddenDir(dirName: String) -> Bool {
+    return dirName.hasPrefix(".")
+}
+
 class DirectoryMonitor: NSObject {
-    private let watchDirURL: URL
-    private var cancellables = Set<AnyCancellable>()
-    private let fileManager = FileManager.default
-    private var knownFiles: Set<String> = []
+    var watchDirURL: URL
+    private var knownItems: Set<String> = []
+    private var eventStream: DispatchSourceFileSystemObject?
+    private var descriptor: Int32 = -1
     
     init(_ watchDirURL: URL) {
         self.watchDirURL = watchDirURL
@@ -29,7 +34,7 @@ class DirectoryMonitor: NSObject {
     }
     
     func startMonitoring() {
-        self.knownFiles = Set(try! fileManager.contentsOfDirectory(atPath: watchDirURL.path))
+        self.knownItems = Set(try! FileManager.default.contentsOfDirectory(atPath: watchDirURL.path))
         
         let monitorQueue = DispatchQueue(label: "com.AutoShelf.FSEventStream", qos: .utility)
         
@@ -42,23 +47,27 @@ class DirectoryMonitor: NSObject {
                 NSFileCoordinator.addFilePresenter(self)
                 
                 let fileSystemMonitor = AsyncStream<[URL]> { continuation in
-                    self.monitorDownloadsDirectory(continuation: continuation)
+                    self.monitorDirectory(continuation: continuation)
                 }
                 
                 Task {
                     for try await changes in fileSystemMonitor {
                         for change in changes {
-                            // Skip files that do not have a default application, as they are likely temporary files
-                            guard hasDefaultApplicationForFile(fileName: change.lastPathComponent) else {
-                                continue
-                            }
-                            
-                            if self.fileManager.fileExists(atPath: change.path) {
-                                DropshelfController.shared.addFile(fileURL: change)
-                                
-                                Notifications.notifyFileAdded(fileName: change.lastPathComponent)
-                            } else {
-                                Notifications.notifyFileDeleted(fileName: change.lastPathComponent)
+                            print("Change detected, File: \(change.lastPathComponent)")
+                            let itemType = (try? FileManager.default.attributesOfItem(atPath: change.path)[.type] as? FileAttributeType) ?? .typeUnknown
+                            let isDir = itemType == .typeDirectory
+                            if (isDir && !isHiddenDir(dirName: change.lastPathComponent)) || hasDefaultApplicationForFile(fileName: change.lastPathComponent) {
+                                if FileManager.default.fileExists(atPath: change.path) {
+                                    DropshelfController.shared.addItem(path: change)
+                                    
+                                    if Defaults[.isNotificationsEnabled] {
+                                        Notifications.notifyItemAdded(itemPath: change, itemType: itemType)
+                                    }
+                                } else {
+                                    if Defaults[.isNotificationsEnabled] {
+                                        Notifications.notifyItemDeleted(itemPath: change, itemType: itemType)
+                                    }
+                                }
                             }
                         }
                     }
@@ -67,44 +76,54 @@ class DirectoryMonitor: NSObject {
         }
     }
     
-    private func monitorDownloadsDirectory(continuation: AsyncStream<[URL]>.Continuation) {
-        let descriptor = open(self.watchDirURL.path, O_EVTONLY)
+    func stopMonitoring() {
+        eventStream?.cancel()
+        eventStream = nil
+        if descriptor != -1 {
+            close(descriptor)
+            descriptor = -1
+        }
+        NSFileCoordinator.removeFilePresenter(self)
+    }
+    
+    private func monitorDirectory(continuation: AsyncStream<[URL]>.Continuation) {
+        descriptor = open(self.watchDirURL.path, O_EVTONLY)
         guard descriptor != -1 else {
             print("Failed to open file descriptor: \(String(cString: strerror(errno)))")
             continuation.finish()
             return
         }
         
-        let eventStream = DispatchSource.makeFileSystemObjectSource(
+        eventStream = DispatchSource.makeFileSystemObjectSource(
             fileDescriptor: descriptor,
             eventMask: .all,
             queue: DispatchQueue.global()
         )
         
-        eventStream.setEventHandler {
-            let currentDownloadedFiles = Set(
-                (try? self.fileManager.contentsOfDirectory(atPath: self.watchDirURL.path)) ?? []
+        eventStream?.setEventHandler {
+            let currentFiles = Set(
+                (try? FileManager.default.contentsOfDirectory(atPath: self.watchDirURL.path)) ?? []
             )
-            let changes = self.detectChanges(currentFiles: currentDownloadedFiles)
+            let changes = self.detectChanges(currentFiles: currentFiles)
             continuation.yield(changes)
-            self.knownFiles = currentDownloadedFiles
+            self.knownItems = currentFiles
         }
         
-        eventStream.setCancelHandler {
-            close(descriptor)
+        eventStream?.setCancelHandler {
+            close(self.descriptor)
             continuation.finish()
         }
         
-        eventStream.resume()
+        eventStream?.resume()
         
-        continuation.onTermination = { _ in
-            eventStream.cancel()
+        continuation.onTermination = { [weak self] _ in
+            self?.eventStream?.cancel()
         }
     }
     
     private func detectChanges(currentFiles: Set<String>) -> [URL] {
-        let addedFiles = currentFiles.subtracting(knownFiles)
-        let deletedFiles = knownFiles.subtracting(currentFiles)
+        let addedFiles = currentFiles.subtracting(knownItems)
+        let deletedFiles = knownItems.subtracting(currentFiles)
         return (addedFiles.union(deletedFiles)).map { self.watchDirURL.appendingPathComponent($0) }
     }
 }

@@ -1,5 +1,8 @@
 import Cocoa
 import SwiftUI
+import Settings
+import Defaults
+import Combine
 
 fileprivate func requestAccessibilityPermission (){
     let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String : true]
@@ -13,27 +16,36 @@ fileprivate func requestAccessibilityPermission (){
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var filesMonitor: DirectoryMonitor?
     private var dropshelfController: DropshelfController?
+    lazy var settingsWindowController = SettingsWindowManager.shared
     
-    func applicationDidFinishLaunching(_ notification: Notification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         print("Application did finish launching")
+        NSApplication.shared.setActivationPolicy(.accessory)
         
         requestAccessibilityPermission()
         
-        guard let downloadsPath = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first else {
-            let alert = NSAlert()
-            alert.messageText = "Failed to locate Downloads directory. AutoShelf will quit."
-            alert.alertStyle = .warning
-            alert.addButton(withTitle: "OK")
-            alert.runModal()
-            NSApplication.shared.terminate(nil)
-            return
-        }
-        
-        print("Starting Watching at \(downloadsPath.path)")
-        
-        filesMonitor = DirectoryMonitor(downloadsPath)
-        filesMonitor!.startMonitoring()
-        
         dropshelfController = DropshelfController.shared
+        
+        self.setupMonitored(path: Defaults[.monitoredPath])
+        Task {
+            for await newPath in Defaults.updates(.monitoredPath) {
+                if newPath != filesMonitor?.watchDirURL { // Prevent initial value trigger
+                    self.setupMonitored(path: newPath)
+                }
+            }
+        }
+    }
+    
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        settingsWindowController.openSettingsWindow()
+        return false
+    }
+    
+    
+    private func setupMonitored(path: URL) {
+        filesMonitor?.stopMonitoring()
+        filesMonitor = DirectoryMonitor(path)
+        filesMonitor?.startMonitoring()
+        print("Starting Watching at \(path)")
     }
 }
