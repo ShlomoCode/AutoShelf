@@ -41,11 +41,9 @@ class DirectoryMonitor: NSObject {
         monitorQueue.async {
             NSFileCoordinator().coordinate(
                 readingItemAt: self.watchDirURL,
-                options: [.immediatelyAvailableMetadataOnly],
+                options: [.immediatelyAvailableMetadataOnly, .withoutChanges],
                 error: nil
             ) { newURL in
-                NSFileCoordinator.addFilePresenter(self)
-                
                 let fileSystemMonitor = AsyncStream<[URL]> { continuation in
                     self.monitorDirectory(continuation: continuation)
                 }
@@ -83,7 +81,6 @@ class DirectoryMonitor: NSObject {
             close(descriptor)
             descriptor = -1
         }
-        NSFileCoordinator.removeFilePresenter(self)
     }
     
     private func monitorDirectory(continuation: AsyncStream<[URL]>.Continuation) {
@@ -125,20 +122,5 @@ class DirectoryMonitor: NSObject {
         let addedFiles = currentFiles.subtracting(knownItems)
         let deletedFiles = knownItems.subtracting(currentFiles)
         return (addedFiles.union(deletedFiles)).map { self.watchDirURL.appendingPathComponent($0) }
-    }
-}
-
-extension DirectoryMonitor: NSFilePresenter {
-    var presentedItemURL: URL? {
-        return watchDirURL
-    }
-    
-    var presentedItemOperationQueue: OperationQueue {
-        return .main
-    }
-    
-    func presentedItemDidChange() {
-        // This method is called when changes occur to the presented directory
-        // We're handling changes in our file system monitor, so we don't need to do anything here
     }
 }
