@@ -13,7 +13,7 @@ class Notifications {
     }
     
     static func notifyItemAdded(itemPath: URL, itemType: FileAttributeType) {
-        let itemTypeReadableName = itemType == .typeDirectory ? "Directory" : "File"
+        let itemTypeReadableName = itemType == .typeDirectory ? "Folder" : "File"
         let parentDir = itemPath.deletingLastPathComponent().lastPathComponent
         let content = createNotificationContent(
             title: "New \(itemTypeReadableName) in Downloads",
@@ -23,7 +23,7 @@ class Notifications {
     }
     
     static func notifyItemDeleted(itemPath: URL, itemType: FileAttributeType) {
-        let itemTypeReadableName = itemType == .typeDirectory ? "Directory" : "File"
+        let itemTypeReadableName = itemType == .typeDirectory ? "Folder" : "File"
         let parentDir = itemPath.deletingLastPathComponent().lastPathComponent
         let content = createNotificationContent(
             title: "\(itemTypeReadableName) Deleted from Downloads",

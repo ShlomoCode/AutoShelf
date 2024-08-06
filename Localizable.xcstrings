@@ -1,0 +1,176 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Accessibility Permission Granted" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הוענקה הרשאת נגישות"
+          }
+        }
+      }
+    },
+    "Accessibility Permission Not Granted" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הוענקה הרשאת נגישות"
+          }
+        }
+      }
+    },
+    "Choose Folder" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בחירת תיקיה"
+          }
+        }
+      }
+    },
+    "Choose Folder..." : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בחירת תיקייה..."
+          }
+        }
+      }
+    },
+    "Close All" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סגור הכל"
+          }
+        }
+      }
+    },
+    "Current Shelves (%lld)" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מדפים נוכחיים (%lld)"
+          }
+        }
+      }
+    },
+    "Launch at login" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הפעל בעת הכניסה"
+          }
+        }
+      }
+    },
+    "Monitored Folder:" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תיקיה לניטור:"
+          }
+        }
+      }
+    },
+    "Quit" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יציאה"
+          }
+        }
+      }
+    },
+    "Quit AutoShelf" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "צא מ-AutoShelf"
+          }
+        }
+      }
+    },
+    "seconds" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שניות"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הגדרות"
+          }
+        }
+      }
+    },
+    "Show menu bar icon" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצג סמל בשורת התפריטים"
+          }
+        }
+      }
+    },
+    "Show notification for every created/deleted file." : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצג התראה על כל קובץ שנוצר/נמחק מהתיקייה."
+          }
+        }
+      }
+    },
+    "Show notifications" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצג התראות"
+          }
+        }
+      }
+    },
+    "The shelf will close automatically after" : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "המדף ייסגר אוטומטית לאחר"
+          }
+        }
+      }
+    },
+    "To open settings when the menu bar icon is hidden, relaunch the app." : {
+      "localizations" : {
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כדי לפתוח את הגדרות היישום כאשר סמל שורת התפריטים מושבת, פתח מחדש את היישום כאשר הוא כבר פועל."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

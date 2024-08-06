@@ -15,10 +15,6 @@ struct AutoShelfApp: App {
         }
         
         MenuBarExtra("main", systemImage: "tray.and.arrow.down.fill", isInserted: $showMenuBarIcon) {
-            Text("Auto Shelf")
-            
-            Divider()
-            
             Text("Current Shelves (\(dropshelfController.managedShelves.count))")
             ForEach(dropshelfController.managedShelves, id: \.self.axElement) { download in
                 Text(download.itemURL.lastPathComponent)
@@ -36,7 +32,7 @@ struct AutoShelfApp: App {
                 Text("Settings")
             }
             
-            Button("Quit") {
+            Button("Quit AutoShelf") {
                 NSApplication.shared.terminate(nil)
             }.keyboardShortcut("q")
         }

@@ -13,7 +13,7 @@ struct SettingsView: View {
     @State private var permissionCheckTimer: Timer?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 10) {
             AccessibilityPermissionStatus(hasPermission: $hasAccessibilityPermission)
             MenuBarIconToggle(showMenuBarIcon: $showMenuBarIcon)
             LaunchAtLoginToggle()
@@ -22,8 +22,8 @@ struct SettingsView: View {
             MonitoredFolderPicker(monitoredPath: $monitoredPath, isShowingFolderPicker: $isShowingFolderPicker)
             QuitButton()
         }
-        .padding(30)
-        .frame(width: 500, height: 285)
+        .padding(10)
+        .frame(width: 500)
         .fileImporter(isPresented: $isShowingFolderPicker, allowedContentTypes: [.folder], allowsMultipleSelection: false) { result in
             if case .success(let urls) = result, let selectedURL = urls.first {
                 monitoredPath = selectedURL
@@ -84,6 +84,7 @@ struct MenuBarIconToggle: View {
                 Text("To open settings when the menu bar icon is hidden, relaunch the app.")
                     .foregroundColor(.gray)
                     .font(.footnote)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
@@ -91,7 +92,9 @@ struct MenuBarIconToggle: View {
 
 struct LaunchAtLoginToggle: View {
     var body: some View {
-        LaunchAtLogin.Toggle("Launch at login")
+        LaunchAtLogin.Toggle {
+            Text("Launch at login")
+        }
     }
 }
 
@@ -100,7 +103,7 @@ struct NotificationsToggle: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Toggle("Enable notifications", isOn: $isEnabled)
+            Toggle("Show notifications", isOn: $isEnabled)
                 .onChange(of: isEnabled) { _, isOn in
                     if isOn {
                         Task {
@@ -108,7 +111,7 @@ struct NotificationsToggle: View {
                         }
                     }
                 }
-            Text("Shows notification for every created/deleted file.")
+            Text("Show notification for every created/deleted file.")
                 .font(.caption)
                 .foregroundColor(.gray)
         }
@@ -120,11 +123,11 @@ struct AutoCloseDurationSlider: View {
     
     var body: some View {
         HStack {
-            Text("Auto close duration:")
+            Text("The shelf will close automatically after")
                 .layoutPriority(1)
             Spacer()
             Slider(value: $duration, in: 5...120, step: 5)
-            TextField("", value: $duration, formatter: NumberFormatter())
+            TextField(String(""), value: $duration, formatter: NumberFormatter())
                 .frame(width: 41)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             Text("seconds")
@@ -177,7 +180,7 @@ struct MonitoredFolderPicker: View {
                     }
                 }
                 Divider()
-                Button("Choose Custom Folder...") {
+                Button("Choose Folder...") {
                     isShowingFolderPicker = true
                 }
             }
