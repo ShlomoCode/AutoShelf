@@ -60,7 +60,7 @@ class DropshelfController: ObservableObject {
         // The close button is the first child of the window
         guard AXUIElementCopyAttributeValue(managedShelf.axElement, kAXChildrenAttribute as CFString, &children) == .success,
               let closeButton = (children as? [AXUIElement])?.first else {
-            print("Cannot locate the children")
+            logger.log("Cannot locate the children")
             return
         }
         
@@ -89,7 +89,7 @@ class DropshelfController: ObservableObject {
         let shelfWindowsBefore = getOpenShelves()
         
         guard sendToDropshelfService(itemURLs: [path]) else {
-            print("Failed to send file to Dropshelf")
+            logger.log("Failed to send file to Dropshelf")
             return
         }
         
@@ -98,7 +98,7 @@ class DropshelfController: ObservableObject {
             
             let shelfWindowsAfter = self.getOpenShelves()
             guard let newWindow = shelfWindowsAfter.first(where: { !shelfWindowsBefore.contains($0) }) else {
-                print("Failed to find new shelf window")
+                logger.log("Failed to find new shelf window")
                 return
             }
             

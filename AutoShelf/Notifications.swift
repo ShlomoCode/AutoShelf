@@ -6,9 +6,9 @@ class Notifications {
         let center = UNUserNotificationCenter.current()
         let permissionGranted = try? await center.requestAuthorization(options: [.alert])
         if let permissionGranted = permissionGranted, permissionGranted == true {
-            print("Notification permission granted")
+            logger.log("Notification permission granted")
         } else {
-            print("Notification permission not granted")
+            logger.log("Notification permission not granted")
         }
     }
     
@@ -44,7 +44,7 @@ class Notifications {
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print("Failed to schedule notification: \(error.localizedDescription)")
+                logger.log("Failed to schedule notification: \(error.localizedDescription)")
             }
         }
     }

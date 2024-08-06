@@ -3,15 +3,18 @@ import SwiftUI
 import Settings
 import Defaults
 import Combine
+import os
 
 fileprivate func requestAccessibilityPermission (){
     let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String : true]
     if !AXIsProcessTrustedWithOptions(options) {
-        print("AX Permission Not Granted!")
+        logger.log("AX Permission Not Granted!")
     } else {
-        print("AX Permission Granted")
+        logger.log("AX Permission Granted")
     }
 }
+
+let logger = Logger(subsystem: "main", category: "network")
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var filesMonitor: DirectoryMonitor?
@@ -19,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var settingsWindowController = SettingsWindowManager.shared
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        print("Application did finish launching")
+        logger.log("Application did finish launching")
         NSApplication.shared.setActivationPolicy(.accessory)
         
         requestAccessibilityPermission()
@@ -46,6 +49,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         filesMonitor?.stopMonitoring()
         filesMonitor = DirectoryMonitor(path)
         filesMonitor?.startMonitoring()
-        print("Starting Watching at \(path)")
+        logger.log("Starting Watching at \(path)")
     }
 }

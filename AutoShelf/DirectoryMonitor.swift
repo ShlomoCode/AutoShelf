@@ -51,7 +51,7 @@ class DirectoryMonitor: NSObject {
                 Task {
                     for try await changes in fileSystemMonitor {
                         for change in changes {
-                            print("Change detected, File: \(change.lastPathComponent)")
+                            logger.log("Change detected, File: \(change.lastPathComponent)")
                             let itemType = (try? FileManager.default.attributesOfItem(atPath: change.path)[.type] as? FileAttributeType) ?? .typeUnknown
                             let isDir = itemType == .typeDirectory
                             if (isDir && !isHiddenDir(dirName: change.lastPathComponent)) || hasDefaultApplicationForFile(fileName: change.lastPathComponent) {
@@ -86,7 +86,7 @@ class DirectoryMonitor: NSObject {
     private func monitorDirectory(continuation: AsyncStream<[URL]>.Continuation) {
         descriptor = open(self.watchDirURL.path, O_EVTONLY)
         guard descriptor != -1 else {
-            print("Failed to open file descriptor: \(String(cString: strerror(errno)))")
+            logger.log("Failed to open file descriptor: \(String(cString: strerror(errno)))")
             continuation.finish()
             return
         }
