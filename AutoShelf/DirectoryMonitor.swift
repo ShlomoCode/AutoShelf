@@ -62,6 +62,8 @@ class DirectoryMonitor: NSObject {
                                         Notifications.notifyItemAdded(itemPath: change, itemType: itemType)
                                     }
                                 } else {
+                                    DropshelfController.shared.removeItem(path: change)
+                                    
                                     if Defaults[.isNotificationsEnabled] {
                                         Notifications.notifyItemDeleted(itemPath: change, itemType: itemType)
                                     }

@@ -116,9 +116,16 @@ class DropshelfController: ObservableObject {
         }
     }
     
+    func removeItem(path: URL) {
+        if let shelf = self.managedShelves.first(where: { $0.itemURL == path }) {
+            self.closeShelf(shelf)
+            self.managedShelves.removeAll {  $0.itemURL == path }
+        }
+    }
+    
     func closeAll() {
-        for managedShelf in managedShelves {
-            closeShelf(managedShelf)
+        for managedShelf in self.managedShelves {
+            self.closeShelf(managedShelf)
         }
     }
 }
